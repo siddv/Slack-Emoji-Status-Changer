@@ -25,8 +25,22 @@ const setEmoji = function () {
   
   fetch(url).then((response) => {
 
-      return response.json();
+    if (response.status >= 400) {
 
+      return new Promise((resolve) => {
+
+        resolve({
+
+          error: 'network problems'
+        
+        });
+
+      });
+
+    }
+    
+    return response.json();
+    
     })
     .then((data) => {
       
@@ -47,7 +61,18 @@ const setEmoji = function () {
 
       }, timeout);  
 
-    });
+    })
+    .catch((error) => {
+
+      console.log(`On no. It broke for other reasons: ${error}\nTrying again...`);
+
+      setTimeout(() => {
+
+        setEmoji();
+
+      }, timeout); 
+
+    })
 
 }
 
