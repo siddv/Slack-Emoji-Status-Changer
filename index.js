@@ -25,26 +25,29 @@ const setEmoji = function () {
   
   fetch(url).then((response) => {
 
-      if(response.status >= 400) {
-
-        throw new Error('On no. It broke.');
-      
-      }
-
       return response.json();
 
     })
     .then((data) => {
+      
+      if (data.error) {
+        
+        console.error(`On no. It broke: ${data.error}`);
+        throw new Error(`On no. It broke: ${data.error}`);
 
-      setTimeout(() => {
+      } else {
 
-        counter++; 
-        console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
-        setEmoji();
+        setTimeout(() => {
 
-      }, timeout);    
+          counter++; 
+          console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
+          setEmoji();
+
+        }, timeout);  
+
+      }
   
-    })
+    });
 
 }
 
