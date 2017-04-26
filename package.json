@@ -1,0 +1,18 @@
+{
+  "name": "slack-emoji-status-changer",
+  "version": "1.0.0",
+  "description": "Automatically randomises and changes your emoji in slack",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4.1.0",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siddharth Vadgama <me@siddv.net>",
+  "license": "MIT"
+}
