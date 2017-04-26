@@ -21,7 +21,7 @@ const getRandomEmoji = function () {
 const setEmoji = function () {
 
   let emoji = getRandomEmoji();
-	let url = 'https://slack.com/api/users.profile.set?token=' + token + '&profile=' + encodeURIComponent(JSON.stringify({'status_emoji': emoji}));
+  let url = 'https://slack.com/api/users.profile.set?token=' + token + '&profile=' + encodeURIComponent(JSON.stringify({'status_emoji': emoji}));
   
   fetch(url).then((response) => {
 
