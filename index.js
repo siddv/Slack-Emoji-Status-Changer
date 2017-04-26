@@ -32,21 +32,21 @@ const setEmoji = function () {
       
       if (data.error) {
         
-        console.error(`On no. It broke: ${data.error}`);
-        throw new Error(`On no. It broke: ${data.error}`);
+        console.log(`On no. It broke: ${data.error}\nTrying again...`);
 
-      } else {
+      }else {
 
-        setTimeout(() => {
-
-          counter++; 
-          console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
-          setEmoji();
-
-        }, timeout);  
+        counter++; 
+        console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
 
       }
-  
+
+      setTimeout(() => {
+
+        setEmoji();
+
+      }, timeout);  
+
     });
 
 }
