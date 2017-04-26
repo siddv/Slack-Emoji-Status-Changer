@@ -1,9 +1,9 @@
 require('isomorphic-fetch');
 const tokens = require('./slack-api-tokens');
 
-const timeout = 5000;
-const emojiList = require('./emoji-list');
+const emojiList = require('./emojis.json').emojis;
 const numOfEmojis = emojiList.length;
+const timeout = 5000;
 
 /**
  * Returns a random emoji from the above list
