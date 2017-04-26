@@ -24,6 +24,7 @@ const setEmoji = function () {
 	let url = 'https://slack.com/api/users.profile.set?token=' + token + '&profile=' + encodeURIComponent(JSON.stringify({'status_emoji': emoji}));
   
   fetch(url).then((response) => {
+
       if(response.status >= 400) {
 
         throw new Error('On no. It broke.');
