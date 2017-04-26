@@ -34,7 +34,7 @@ const setEmoji = function () {
         
         console.log(`On no. It broke: ${data.error}\nTrying again...`);
 
-      }else {
+      } else {
 
         counter++; 
         console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
