@@ -47,8 +47,17 @@ const setEmoji = function (token, counter) {
     
   }).then(data => {
 
-      console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
-      counter++;
+      if(data.error) {
+
+        console.log(`Oh no. It broke: ${data.error}\nTrying again...`);
+
+      } else {
+
+        console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
+        counter++;
+
+      }
+
       setEmojiAgain();
     
     })
