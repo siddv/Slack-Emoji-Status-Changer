@@ -29,21 +29,17 @@ const setEmoji = function (token, counter) {
     if (response.status >= 400) {
 
       return new Promise((resolve) => {
-
         resolve({
-
           error: 'network problems'
-        
         });
-
       });
 
     }
     
     return response.json();
     
-    })
-    .then((data) => {
+  }).then((data) => {
+
       console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
       counter++;
 
