@@ -1,9 +1,10 @@
 require('isomorphic-fetch');
-const tokens = require('./slack-api-tokens');
+require('dotenv').config()
 
-const emojiList = require('./emojis.json').emojis;
-const numOfEmojis = emojiList.length;
-const timeout = 5000;
+const tokens = process.env.SLACK_API_TOKENS.split(','),
+      emojiList = require('./emojis.json').emojis,
+      numOfEmojis = emojiList.length,
+      timeout = 5000;
 
 /**
  * Returns a random emoji from the above list
@@ -17,57 +18,57 @@ const getRandomEmoji = function () {
  */
 const setEmoji = function (token, counter) {
 
-  let emoji = getRandomEmoji();
-	let url = `https://slack.com/api/users.profile.set?token=${token}&profile=` + encodeURIComponent(JSON.stringify({
-    'status_emoji': emoji,
-    'status_text': `Emoji successfully changed ${counter} times.`
-  }));
+  let emoji = getRandomEmoji(),
 
-  fetch(url).then((response) => {
-      if(response.status >= 400) {
+      url = `https://slack.com/api/users.profile.set?token=${token}&profile=` + encodeURIComponent(JSON.stringify({
+        'status_emoji': emoji,
+        'status_text': `Emoji successfully changed ${counter} times.`
+      })),
 
-        throw new Error('On no. It broke.');
-
+      setEmojiAgain = function () {
+        setTimeout(() => {
+          setEmoji(token, counter);
+        }, timeout);
       }
+
+  fetch(url).then(response => {
 
     if (response.status >= 400) {
 
-      return new Promise((resolve) => {
-
+      return new Promise(resolve => {
         resolve({
-
           error: 'network problems'
-        
         });
-
       });
 
     }
     
     return response.json();
     
-    })
-    .then((data) => {
-      console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
-      counter++;
+  }).then(data => {
 
-      setTimeout(() => {
-        setEmoji(token, counter);
-      }, timeout);
+      if(data.error) {
+
+        console.log(`Oh no. It broke: ${data.error}\nTrying again...`);
+
+      } else {
+
+        console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
+        counter++;
+
+      }
+
+      setEmojiAgain();
     
     })
-    .catch((error) => {
+    .catch(error => {
 
       console.log(`On no. It broke for other reasons: ${error}\nTrying again...`);
-
-      setTimeout(() => {
-
-        setEmoji();
-
-      }, timeout); 
+      setEmojiAgain();
 
     })
 }
+
 /**
  * Do the thing
  */
