@@ -1,6 +1,7 @@
 require('isomorphic-fetch');
-const tokens = require('./slack-api-tokens');
+require('dotenv').config()
 
+const tokens = process.env.SLACK_API_TOKENS.split(',');
 const emojiList = require('./emojis.json').emojis;
 const numOfEmojis = emojiList.length;
 const timeout = 5000;
@@ -24,11 +25,6 @@ const setEmoji = function (token, counter) {
   }));
 
   fetch(url).then((response) => {
-      if(response.status >= 400) {
-
-        throw new Error('On no. It broke.');
-
-      }
 
     if (response.status >= 400) {
 
@@ -61,9 +57,7 @@ const setEmoji = function (token, counter) {
       console.log(`On no. It broke for other reasons: ${error}\nTrying again...`);
 
       setTimeout(() => {
-
-        setEmoji();
-
+        setEmoji(token, counter);
       }, timeout); 
 
     })
