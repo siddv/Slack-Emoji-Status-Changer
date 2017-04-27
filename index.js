@@ -1,10 +1,10 @@
 require('isomorphic-fetch');
 require('dotenv').config()
 
-const tokens = process.env.SLACK_API_TOKENS.split(',');
-const emojiList = require('./emojis.json').emojis;
-const numOfEmojis = emojiList.length;
-const timeout = 5000;
+const tokens = process.env.SLACK_API_TOKENS.split(','),
+      emojiList = require('./emojis.json').emojis,
+      numOfEmojis = emojiList.length,
+      timeout = 5000;
 
 /**
  * Returns a random emoji from the above list
@@ -18,17 +18,18 @@ const getRandomEmoji = function () {
  */
 const setEmoji = function (token, counter) {
 
-  let emoji = getRandomEmoji();
-	let url = `https://slack.com/api/users.profile.set?token=${token}&profile=` + encodeURIComponent(JSON.stringify({
-    'status_emoji': emoji,
-    'status_text': `Emoji successfully changed ${counter} times.`
-  }));
+  let emoji = getRandomEmoji(),
 
-  let setEmojiAgain = function () {
-    setTimeout(() => {
-      setEmoji(token, counter);
-    }, timeout);
-  }
+      url = `https://slack.com/api/users.profile.set?token=${token}&profile=` + encodeURIComponent(JSON.stringify({
+        'status_emoji': emoji,
+        'status_text': `Emoji successfully changed ${counter} times.`
+      })),
+
+      setEmojiAgain = function () {
+        setTimeout(() => {
+          setEmoji(token, counter);
+        }, timeout);
+      }
 
   fetch(url).then(response => {
 
