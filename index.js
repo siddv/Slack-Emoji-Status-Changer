@@ -24,11 +24,11 @@ const setEmoji = function (token, counter) {
     'status_text': `Emoji successfully changed ${counter} times.`
   }));
 
-  fetch(url).then((response) => {
+  fetch(url).then(response => {
 
     if (response.status >= 400) {
 
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         resolve({
           error: 'network problems'
         });
@@ -38,7 +38,7 @@ const setEmoji = function (token, counter) {
     
     return response.json();
     
-  }).then((data) => {
+  }).then(data => {
 
       console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
       counter++;
@@ -48,7 +48,7 @@ const setEmoji = function (token, counter) {
       }, timeout);
     
     })
-    .catch((error) => {
+    .catch(error => {
 
       console.log(`On no. It broke for other reasons: ${error}\nTrying again...`);
 
@@ -58,6 +58,7 @@ const setEmoji = function (token, counter) {
 
     })
 }
+
 /**
  * Do the thing
  */
