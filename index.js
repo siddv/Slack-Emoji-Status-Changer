@@ -24,6 +24,12 @@ const setEmoji = function (token, counter) {
     'status_text': `Emoji successfully changed ${counter} times.`
   }));
 
+  let setEmojiAgain = function () {
+    setTimeout(() => {
+      setEmoji(token, counter);
+    }, timeout);
+  }
+
   fetch(url).then(response => {
 
     if (response.status >= 400) {
@@ -42,19 +48,13 @@ const setEmoji = function (token, counter) {
 
       console.log(`Emoji successfully changed ${counter} times. Current: ${emoji}`);
       counter++;
-
-      setTimeout(() => {
-        setEmoji(token, counter);
-      }, timeout);
+      setEmojiAgain();
     
     })
     .catch(error => {
 
       console.log(`On no. It broke for other reasons: ${error}\nTrying again...`);
-
-      setTimeout(() => {
-        setEmoji(token, counter);
-      }, timeout); 
+      setEmojiAgain();
 
     })
 }
