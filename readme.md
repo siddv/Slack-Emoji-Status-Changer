@@ -11,5 +11,5 @@ Optional: change the `const timeout` in `index.js` to change the frequency
 
 `npm install`
 
-`npm run start` or `node index.js`
+`npm run start` or `node --use_strict index.js`
 
